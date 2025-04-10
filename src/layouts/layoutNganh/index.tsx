@@ -7,7 +7,7 @@ import {
   Container,
   GridItem,
   Heading,
-  SimpleGrid
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
@@ -42,10 +42,15 @@ export const LayoutNganh = ({
               <GridItem colSpan={{ base: 1, md: 2 }}>{children}</GridItem>
               <GridItem>
                 <Box mt={{ base: "24px", lg: 0 }}>
-                  <Heading as={"h2"} size={{ base: "md" }} pb={"12px"}>
-                    Đăng ký xét tuyển không cần thi
+                  <Heading
+                    as={"h2"}
+                    size={{ base: "md", lg: "20px" }}
+                    pb={"12px"}
+                    textAlign={"center"}
+                  >
+                    Đăng ký xét tuyển không cần thi tuyển
                   </Heading>
-                  <FormWrapper type="form-main" />
+                  <FormWrapper />
                 </Box>
               </GridItem>
             </SimpleGrid>

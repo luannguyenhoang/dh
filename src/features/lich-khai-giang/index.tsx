@@ -1,6 +1,6 @@
 "use client";
 
-import { Frame } from "@/components/Frame";
+import { FrameWrapper } from "@/components/FrameWrapper";
 import { Loading } from "@/components/Loading";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { useEffect, useState } from "react";
@@ -25,7 +25,7 @@ export const LichKg = ({ serverData }: { serverData?: any }) => {
       data={lichData?.thongBao}
     >
       {!isLoading && (
-        <Frame
+        <FrameWrapper
           title1={lichData?.section1?.title}
           list1={labelList}
           label="Đăng ký tư vấn"

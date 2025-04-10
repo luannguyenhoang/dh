@@ -1,14 +1,11 @@
-import {
+  import {
   HStack,
   Heading,
   ListItem,
   UnorderedList,
   VStack,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { BtnTheme } from "./BtnTheme";
-import { FormPoup } from "./FormContact";
-import { ModalBase } from "./Modal";
 
 export const Frame = ({
   title1,
@@ -16,15 +13,15 @@ export const Frame = ({
   label,
   list1,
   list2,
+  onClick,
 }: {
   title1: string;
   title2?: string;
   label: string;
   list1?: string[];
   list2?: string[];
+  onClick?: () => void;
 }) => {
-  const { isOpen, onOpen, onClose, onToggle } = useDisclosure();
-
   return (
     <>
       <VStack
@@ -43,13 +40,23 @@ export const Frame = ({
           ))}
         </UnorderedList>
 
+        {title2 && (
+          <>
+            <Heading as={"h3"} size={"md"} textAlign={"center"} w={"100%"}>
+              {title2}
+            </Heading>
+
+            <UnorderedList>
+              {list2?.map((item, index) => (
+                <ListItem key={index}>{item}</ListItem>
+              ))}
+            </UnorderedList>
+          </>
+        )}
         <HStack justify={"center"} w={"100%"}>
-          <BtnTheme onClick={onToggle}>{label}</BtnTheme>
+          <BtnTheme onClick={onClick}>{label}</BtnTheme>
         </HStack>
       </VStack>
-      <ModalBase isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
-        <FormPoup title="Đăng ký tư vấn" />
-      </ModalBase>
     </>
   );
 };

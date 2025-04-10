@@ -48,7 +48,7 @@ const iconComponents: IconType[] = [
 
 export const AccSupport = ({ supportItems = defaultAccSupport }) => {
   return (
-    <Accordion defaultIndex={[0]} allowMultiple>
+    <Accordion allowMultiple>
       {supportItems.map((acc, index) => (
         <AccordionItem
           border={"none"}

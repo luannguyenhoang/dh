@@ -7,6 +7,7 @@ export const Logo = () => {
     <Link
       href="/"
       style={{ display: "flex", alignItems: "center", gap: "12px" }}
+      prefetch={false}
     >
       <Image
         priority
@@ -16,9 +17,9 @@ export const Logo = () => {
         src={`/logo-dhthainguyen.png`}
         alt="logo Đại học Thái nguyên"
       />
-      <VStack color={"#028dbf"} align={"start"}>
+      <VStack color={"#028dbf"} align={"start"} spacing={3}>
         <Heading as="h1" size={{ base: "sm", lg: "md" }}>
-        Đại học Thái Nguyên
+          Đại học Thái Nguyên
         </Heading>
         <Heading as="h2" fontSize={{ base: ".8rem" }}>
           Trung tâm đào tạo từ xa

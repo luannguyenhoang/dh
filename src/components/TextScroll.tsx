@@ -1,5 +1,5 @@
-import { Box, ListItem, UnorderedList } from "@chakra-ui/react";
 import styles from "@/styles/TextScroll.module.css";
+import { Box, ListItem, UnorderedList } from "@chakra-ui/react";
 
 export const TextScroll = ({ list }: { list?: string[] }) => {
   const listInf = list || [];
@@ -10,7 +10,7 @@ export const TextScroll = ({ list }: { list?: string[] }) => {
         display: "flex",
         position: "relative",
         width: "100%",
-        height: "60px",
+        height: "40px",
         background:
           "linear-gradient(70deg, rgba(246, 137, 32, 1), rgba(252, 89, 52, 1) 100%)",
         overflow: "hidden",

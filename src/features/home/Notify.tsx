@@ -4,6 +4,7 @@ import { HeadSection } from "@/components/HeadSection";
 import {
   Accordion,
   AccordionButton,
+  AccordionIcon,
   AccordionItem,
   AccordionPanel,
   Box,
@@ -11,13 +12,11 @@ import {
   GridItem,
   Heading,
   HStack,
-  Icon,
   SimpleGrid,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import parse from "html-react-parser";
 import Image from "next/image";
-import { BiPlus } from "react-icons/bi";
 
 type AccordionItem = {
   title: string;
@@ -29,7 +28,7 @@ type NotifyProps = {
 };
 
 export const Accs = ({ accs }: { accs: AccordionItem[] }) => (
-  <Accordion defaultIndex={[0]} allowMultiple>
+  <Accordion allowMultiple>
     {accs.map((acc, index) => (
       <AccordionItem border="none" key={index} py="12px" rounded="sm">
         <AccordionButton bg="gray.50" py="16px" rounded="sm">
@@ -38,7 +37,7 @@ export const Accs = ({ accs }: { accs: AccordionItem[] }) => (
               <Heading fontSize={{ base: "sm", md: "md" }}>{acc.title}</Heading>
             </HStack>
           </Box>
-          <Icon as={BiPlus} />
+          <AccordionIcon />
         </AccordionButton>
         <AccordionPanel pb={4} color="gray.900">
           <Box className="notify-content">{parse(acc.content)}</Box>

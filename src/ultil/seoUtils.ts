@@ -9,7 +9,6 @@ export function extractMetaContent(fullHead: string, key: string): string {
     const scriptMatch = fullHead.match(scriptRegex);
     return scriptMatch ? scriptMatch[1].trim() : "";
   }
-
   // Regex cho các thẻ meta, link
   const metaRegex = new RegExp(
     `<meta[^>]+?(?:property|name)=["']${key}["'][^>]+?content=["']([^"']+)["']|<link[^>]+?rel=["']${key}["'][^>]+?href=["']([^"']+)["']`,
