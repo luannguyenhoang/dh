@@ -1,0 +1,44 @@
+{
+  "name": "theme-dhtn",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.13.3",
+    "@apollo/experimental-nextjs-app-support": "^0.11.11",
+    "@chakra-ui/next-js": "^2.4.2",
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@next/third-parties": "^15.2.3",
+    "@types/node": "20.5.6",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "18.2.7",
+    "cheerio": "^1.0.0",
+    "eslint": "8.47.0",
+    "eslint-config-next": "13.4.19",
+    "formik": "^2.4.3",
+    "framer-motion": "^12.4.10",
+    "html-react-parser": "^5.2.2",
+    "next": "^14.2.24",
+    "next-seo": "^6.1.0",
+    "react": "18.2.0",
+    "react-countup": "^6.4.2",
+    "react-dom": "18.2.0",
+    "react-icons": "^5.5.0",
+    "react-paginate": "^8.2.0",
+    "sanitize-html": "^2.15.0",
+    "swiper": "^10.2.0",
+    "typescript": "5.2.2",
+    "xss": "^1.0.14"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/sanitize-html": "^2.9.2"
+  }
+}
