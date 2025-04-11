@@ -15,86 +15,59 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { IconType } from "react-icons";
-import { GiSpookyHouse } from "react-icons/gi";
-import { MdOutlineLocalShipping } from "react-icons/md";
-import { SlCalender } from "react-icons/sl";
+import { defaultDataSupport } from "../../DefaultData/defaultDataSupport";
 
-const defaultAccSupport = [
-  {
-    icon: <GiSpookyHouse />,
-    title: "Sở hữu Bằng Đại học uy tín",
-    content:
-      "Bằng Cử nhân không ghi hình thức đào tạo và được Bộ Giáo dục công nhận, Có giá trị sử dụng trọn đời",
-  },
-  {
-    icon: <SlCalender />,
-    title: "Thời gian đào tạo",
-    content:
-      "Thời gian đào tạo tùy vào đối tượng từ 2-2,5 năm. Người học có thể rút ngắn thời gian học tập theo quy chế đào tạo",
-  },
-  {
-    icon: <MdOutlineLocalShipping />,
-    title: "Kho học liệu hoàn toàn miễn phí",
-    content:
-      "Tài liệu học tập đa Phương tiện (video, slide, script,...), giáo trình do Đại học Thái Nguyên biên soạn",
-  },
-];
-
-const iconComponents: IconType[] = [
-  GiSpookyHouse,
-  SlCalender,
-  MdOutlineLocalShipping,
-];
-
-export const AccSupport = ({ supportItems = defaultAccSupport }) => {
+export const AccSupport = ({ supportItems = defaultDataSupport.supportItems }) => {
   return (
     <Accordion allowMultiple>
-      {supportItems.map((acc, index) => (
-        <AccordionItem
-          border={"none"}
-          key={index}
-          py={"12px"}
-          color={"red.700"}
-        >
-          <AccordionButton bg={"gray.50"} py="16px" rounded={"md"}>
-            <Box flex="1" textAlign="left">
-              <HStack>
-                {acc.icon}
-                <Heading
-                  fontSize={{ base: "sm", md: "md" }}
-                  color={"green.900"}
-                >
-                  {acc.title}
-                </Heading>
-              </HStack>
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel pb={4} color={"green.900"}>
-            {acc.content}
-          </AccordionPanel>
-        </AccordionItem>
-      ))}
+      {supportItems.map((acc, index) => {
+        const Icon = acc.iconType;
+        return (
+          <AccordionItem
+            border={"none"}
+            key={index}
+            py={"12px"}
+            color={"red.700"}
+          >
+            <AccordionButton bg={"gray.50"} py="16px" rounded={"md"}>
+              <Box flex="1" textAlign="left">
+                <HStack>
+                  <Icon />
+                  <Heading
+                    fontSize={{ base: "sm", md: "md" }}
+                    color={"green.900"}
+                  >
+                    {acc.title}
+                  </Heading>
+                </HStack>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel pb={4} color={"green.900"}>
+              {acc.content}
+            </AccordionPanel>
+          </AccordionItem>
+        );
+      })}
     </Accordion>
   );
 };
 
 export const Support = ({ supportData }: { supportData?: any }) => {
-  const title = supportData?.tieuDe || "Hỗ trợ của chúng tôi";
-  const desc =
-    supportData?.noiDung || "Đại học Thái Nguyên hỗ trợ bạn nhiều lợi ích";
-  const imageSrc = supportData?.cot?.anh?.node?.mediaItemUrl || "/support.png";
+  const title = supportData?.tieuDe || defaultDataSupport.title;
+  const desc = supportData?.noiDung || defaultDataSupport.desc;
+  const imageSrc = supportData?.cot?.anh?.node?.mediaItemUrl || defaultDataSupport.imageSrc;
 
-  let supportItems = defaultAccSupport;
+  let supportItems = defaultDataSupport.supportItems;
+  const iconComponents = defaultDataSupport.iconComponents;
 
   if (supportData?.cot?.tabs?.list) {
     supportItems = supportData.cot.tabs.list.map((item: any, index: number) => {
-      const Icon =
-        iconComponents[index % iconComponents.length] || GiSpookyHouse;
+      const IconType = iconComponents[index % iconComponents.length] || iconComponents[0];
       return {
-        icon: <Icon />,
-        title: item.text1,
-        content: item.text2,
+        iconType: IconType,
+        title: item.text1 || "",
+        content: item.text2 || "",
       };
     });
   }

@@ -12,6 +12,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import CountUp from "react-countup";
+import { defaultDataCounters } from "../../DefaultData/defaultDataCounters";
 
 interface ICounter {
   start: number;
@@ -52,20 +53,11 @@ export const Counter = (props: ICounter) => {
   );
 };
 
-const defaultCounters = [
-  { start: 0, end: 9, suffix: "Ngành học trực tuyến", prefix: " " },
-  { start: 0, end: 2000, suffix: "Khóa học" },
-  { start: 0, end: 10000, suffix: "Sinh viên theo học" },
-  { start: 0, end: 96, suffix: "Học viên có việc làm", prefix: "%" },
-];
-
 export const Counters = ({ counterData }: { counterData?: any }) => {
-  const title = counterData?.tieuDe || "Những con số ấn tượng";
-  const desc =
-    counterData?.noiDung ||
-    "Cùng xem những con số ấn tượng của chúng tôi trong suốt thời gian vừa qua";
+  const title = counterData?.tieuDe || defaultDataCounters.title;
+  const desc = counterData?.noiDung || defaultDataCounters.desc;
 
-  let counters = defaultCounters;
+  let counters = defaultDataCounters.counters;
 
   if (counterData?.cot && Array.isArray(counterData.cot)) {
     counters = counterData.cot.map((item: any, index: number) => {

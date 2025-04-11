@@ -4,6 +4,7 @@ import { GET_NGON_NGU_ANH } from "@/app/api/GraphQl/ngonNguAnh";
 import { FrameWrapper } from "@/components/FrameWrapper";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { defaultDataNna } from "../../DefaultData/defaultDataNna";
 
 const getNnaData = async () => {
   const client = new ApolloClient({
@@ -29,43 +30,34 @@ export const Nna = async () => {
   const nnaData = await getNnaData();
   const ngonNguAnh = nnaData?.ngonNguAnh || {};
 
-  const list1 = ngonNguAnh?.list1?.content?.map((item: any) => item.text) || [
-    "Tiếng Anh là ngôn ngữ chính thức của Vương quốc Anh, Hoa Kỳ, Canada, Úc, và nhiều quốc gia và vùng lãnh thổ khác trên khắp thế giới. Nó là một trong những ngôn ngữ phổ biến nhất và được sử dụng rộng rãi nhất trên thế giới. Tiếng Anh thuộc hệ thống ngôn ngữ Germanic và được viết bằng bảng chữ cái Latin",
-    "Tiếng Anh được sử dụng rộng rãi trong nhiều lĩnh vực, bao gồm kinh doanh, khoa học, công nghệ, giáo dục, truyền thông, và văn hóa đại chúng. Nó là ngôn ngữ chính thức của nhiều tổ chức quốc tế như Liên Hợp Quốc và NATO.",
-  ];
+  const list1 = ngonNguAnh?.list1?.content?.map((item: any) => item.text) || defaultDataNna.tongQuan.list;
 
-  const list2 = ngonNguAnh?.list2?.content?.map((item: any) => item.text) || [
-    "Giảng viên tiếng anh",
-    "Dịch thuật và phiên dịch",
-    "Kinh doanh quốc tế",
-    "Nghiên cứu và phát triển",
-    "Hướng dẫn viên, chuyên viên tư vấn tại các công ty du lịch, lữ hành, nhà hàng khách sạn",
-  ];
+  const list2 = ngonNguAnh?.list2?.content?.map((item: any) => item.text) || defaultDataNna.ngheNghiep.list;
 
   const notifyData = {
-    tieuDe: nnaData?.tuyenSinh?.header?.title || "Thông báo tuyển sinh",
+    tieuDe: nnaData?.tuyenSinh?.header?.title || defaultDataNna.notifyData.tieuDe,
     noiDung:
       nnaData?.tuyenSinh?.header?.text ||
-      "Thông báo tuyển sinh hệ từ xa Đại học Thái Nguyên 2023",
+      defaultDataNna.notifyData.noiDung,
     tuyenSinh: {
       label1: {
-        child: nnaData?.tuyenSinh?.label1?.child || [],
+        child: nnaData?.tuyenSinh?.label1?.child || defaultDataNna.notifyData.tuyenSinh.label1.child,
       },
       label2: {
-        image: nnaData?.tuyenSinh?.label2?.image?.node?.mediaItemUrl || "",
+        image: nnaData?.tuyenSinh?.label2?.image || defaultDataNna.notifyData.tuyenSinh.label2.image,
       },
     },
   };
 
   return (
     <LayoutNganh 
-      title={nnaData?.tieuDe || "Ngành ngôn ngữ Anh"}
+      title={nnaData?.tieuDe || defaultDataNna.title}
       data={notifyData}
     >
       <FrameWrapper
-        title1={ngonNguAnh?.list1?.title || "Tổng quan chương trình"}
+        title1={ngonNguAnh?.list1?.title || defaultDataNna.tongQuan.title}
         list1={list1}
-        title2={ngonNguAnh?.list2?.title || "Nghề nghiệp"}
+        title2={ngonNguAnh?.list2?.title || defaultDataNna.ngheNghiep.title}
         list2={list2}
         label="Đăng ký tư vấn"
       />

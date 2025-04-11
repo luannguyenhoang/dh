@@ -1,5 +1,7 @@
 "use client";
 
+import { FormWrapper } from "@/components/FormWrapper";
+import { ModalBase } from "@/components/Modal";
 import {
   Box,
   Container,
@@ -63,7 +65,6 @@ const SocialButton = ({
 };
 
 export const Footer = ({ footerData }: { footerData?: any }) => {
-
   const { onToggle, onOpen, onClose, isOpen } = useDisclosure();
 
   const contactTitle = footerData?.text1 || "Thông tin liên hệ";
@@ -109,6 +110,13 @@ export const Footer = ({ footerData }: { footerData?: any }) => {
                 onClick={onToggle}
               />
             </Box>
+            <ModalBase
+              isOpen={isOpen || false}
+              onOpen={() => onOpen && onOpen()}
+              onClose={() => onClose && onClose()}
+            >
+              <FormWrapper type="form-poup" title="Để lại thông tin" />
+            </ModalBase>
           </Flex>
           <SimpleGrid columns={{ base: 1, sm: 2, md: 5 }} spacing={8}>
             <GridItem colSpan={{ base: 1, sm: 2 }}>

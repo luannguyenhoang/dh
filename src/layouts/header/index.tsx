@@ -69,7 +69,7 @@ export const Header = () => {
           <BtnTheme
             colorScheme="red"
             size={{ base: "sm", md: "lg" }}
-            onClick={onToggle}
+            onClick={onOpen}
           >
             Đăng ký tư vấn
           </BtnTheme>

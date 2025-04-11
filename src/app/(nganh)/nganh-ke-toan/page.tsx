@@ -1,5 +1,3 @@
-"use client";
-
 import { Loading } from "@/components/Loading";
 import dynamic from "next/dynamic";
 

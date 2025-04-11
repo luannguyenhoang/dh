@@ -4,6 +4,7 @@ import { GET_DIEN_TU_VIEN_THONG } from "@/app/api/GraphQl/dienTuVienThong";
 import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { defaultDataDtvt } from "../../DefaultData/defaultDataDtvt";
 
 const getDtvtData = async () => {
   const client = new ApolloClient({
@@ -30,43 +31,41 @@ export const Dtvt = async () => {
   const nganhHoc = dtvtData?.nganhHocDtvt || {};
 
   const credits = parseInt(
-    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label?.[0]?.cot?.text2 || "124"
+    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label?.[0]?.cot?.text2 || defaultDataDtvt.credits.toString()
   );
   const subjects = parseInt(
-    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label?.[1]?.cot?.text2 || "42"
+    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label?.[1]?.cot?.text2 || defaultDataDtvt.subjects.toString()
   );
 
   const universityInfo = nganhHoc?.label || [];
 
   const notifyData = {
-    tieuDe: dtvtData?.tuyenSinh?.header?.title || "Thông báo tuyển sinh",
+    tieuDe: dtvtData?.tuyenSinh?.header?.title || defaultDataDtvt.notifyData.tieuDe,
     noiDung:
       dtvtData?.tuyenSinh?.header?.text ||
-      "Thông báo tuyển sinh hệ từ xa Đại học Thái Nguyên 2023",
+      defaultDataDtvt.notifyData.noiDung,
     tuyenSinh: {
       label1: {
-        child: dtvtData?.tuyenSinh?.label1?.child || [],
+        child: dtvtData?.tuyenSinh?.label1?.child || defaultDataDtvt.notifyData.tuyenSinh.label1.child,
       },
       label2: {
-        image: dtvtData?.tuyenSinh?.label2?.image || {
-          node: { mediaItemUrl: "/phoi-bang-dh-thai-nguyen.jpg" },
-        },
+        image: dtvtData?.tuyenSinh?.label2?.image || defaultDataDtvt.notifyData.tuyenSinh.label2.image,
       },
     },
   };
 
   return (
     <LayoutNganh
-      title={dtvtData?.tieuDe || "Ngành điện tử viễn thông"}
+      title={dtvtData?.tieuDe || defaultDataDtvt.title}
       data={notifyData}
     >
       <Branch
         name={nganhHoc?.title}
         universityInfo={universityInfo}
         overview={
-          nganhHoc?.tongQuan?.label?.map((item: any) => item.text) || []
+          nganhHoc?.tongQuan?.label?.map((item: any) => item.text) || defaultDataDtvt.overview
         }
-        jobs={nganhHoc?.ngheNghiep?.label?.map((item: any) => item.text) || []}
+        jobs={nganhHoc?.ngheNghiep?.label?.map((item: any) => item.text) || defaultDataDtvt.jobs}
         program={{
           credits,
           subjects,
@@ -78,32 +77,7 @@ export const Dtvt = async () => {
               title: item.text1 || "",
               content: item.text2 || "",
             })
-          ) || [
-            {
-              title: "Đã có bằng Trung học phổ thông",
-              content: "Từ 4 năm",
-            },
-            {
-              title: "Đã có bằng cao đẳng ngành Điện tử viễn thông",
-              content: "Từ 2 năm",
-            },
-            {
-              title: "Đã có bằng cao đẳng khác ngành Điện tử viễn thông",
-              content: "Từ 2 - 3 năm",
-            },
-            {
-              title: "Đã có bằng trung cấp ngành Điện tử viễn thông",
-              content: "Từ 3 năm",
-            },
-            {
-              title: "Đã có bằng trung cấp khác ngành Điện tử viễn thông",
-              content: "Từ 4 năm",
-            },
-            {
-              title: "Đã có bằng Đại học",
-              content: "Từ 1,5 - 2 năm",
-            },
-          ],
+          ) || defaultDataDtvt.programList,
         }}
       />
     </LayoutNganh>

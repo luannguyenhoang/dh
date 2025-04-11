@@ -13,21 +13,13 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { AiFillStar } from "react-icons/ai";
-
-const defaultLists = [
-  "KHÔNG phải thi đầu vào, chỉ xét tuyển hồ sơ",
-  "KHÔNG phải đến trường, học online mọi lúc mọi nơi",
-  "TIẾT KIỆM chi phí, chủ động thời gian học tập",
-  "Tốt nghiệp Cao đẳng hoặc Đại học",
-  "BẲNG ĐỎ được Bộ GD&ĐT công nhận, có giá trị toàn quốc",
-  "Đủ điều kiện học lên cao học, xét bậc lương, thi công chức theo đúng quy định",
-];
+import { defaultDataContact } from "../../DefaultData/defaultDataContact";
 
 export const Contact = ({ contactData }: { contactData?: any }) => {
-  const title = contactData?.tieuDe || "Tuyển sinh";
-  const desc = contactData?.noiDung || "Hệ đại học từ xa 2023";
+  const title = contactData?.tieuDe || defaultDataContact.title;
+  const desc = contactData?.noiDung || defaultDataContact.desc;
 
-  let lists = defaultLists;
+  let lists = defaultDataContact.lists;
 
   if (contactData?.text) {
     lists = contactData.text
