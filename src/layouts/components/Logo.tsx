@@ -10,7 +10,7 @@ export const Logo = ({ dataLogo }: { dataLogo?: any }) => {
       prefetch={false}
     >
       <Image
-        priority
+        // priorityk
         width={65}
         height={65}
         style={{ borderRadius: "50%" }}

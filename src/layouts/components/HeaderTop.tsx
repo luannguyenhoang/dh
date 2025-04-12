@@ -50,7 +50,10 @@ export const HeaderTop = ({
           <Icon as={LuPhone} />
         </Tags>
 
-        <Tags type="mailto" label={dataHeader?.email || "daihoctructuyen@tnu.edu.vn"}>
+        <Tags
+          type="mailto"
+          label={dataHeader?.email || "daihoctructuyen@tnu.edu.vn"}
+        >
           <Icon as={MdOutlineMail} />
         </Tags>
       </HStack>
@@ -60,7 +63,7 @@ export const HeaderTop = ({
         justify={"center"}
         display={{ base: "none", lg: "flex" }}
       >
-        <Logo />
+        <Logo dataLogo={dataHeader} />
       </HStack>
 
       {hasSearch && (
