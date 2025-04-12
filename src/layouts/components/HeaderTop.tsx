@@ -1,8 +1,8 @@
 import { HStack, Icon, Link, Tag, TagLabel } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 import { LuPhone } from "react-icons/lu";
 import { MdOutlineMail } from "react-icons/md";
-import dynamic from "next/dynamic";
 
 const Search = dynamic(() =>
   import("@/layouts/components/Search").then((mod) => mod.Search)
@@ -36,15 +36,21 @@ export const Tags = ({
   );
 };
 
-export const HeaderTop = ({ hasSearch }: { hasSearch?: boolean }) => {
+export const HeaderTop = ({
+  hasSearch,
+  dataHeader,
+}: {
+  hasSearch?: boolean;
+  dataHeader: any;
+}) => {
   return (
     <HStack align={"center"} justify={"space-between"}>
       <HStack flex={1}>
-        <Tags type="tel" label="0914709118">
+        <Tags type="tel" label={dataHeader?.phoneNumber || "0914709118"}>
           <Icon as={LuPhone} />
         </Tags>
 
-        <Tags type="mailto" label="daihoctructuyen@tnu.edu.vn">
+        <Tags type="mailto" label={dataHeader?.email || "daihoctructuyen@tnu.edu.vn"}>
           <Icon as={MdOutlineMail} />
         </Tags>
       </HStack>

@@ -2,7 +2,7 @@ import { Heading, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const Logo = () => {
+export const Logo = ({ dataLogo }: { dataLogo?: any }) => {
   return (
     <Link
       href="/"
@@ -19,10 +19,10 @@ export const Logo = () => {
       />
       <VStack color={"#028dbf"} align={"start"} spacing={3}>
         <Heading as="h1" size={{ base: "sm", lg: "md" }}>
-          Đại học Thái Nguyên
+          {dataLogo?.name || ""}
         </Heading>
         <Heading as="h2" fontSize={{ base: ".8rem" }}>
-          Trung tâm đào tạo từ xa
+          {dataLogo?.tag || ""}
         </Heading>
       </VStack>
     </Link>

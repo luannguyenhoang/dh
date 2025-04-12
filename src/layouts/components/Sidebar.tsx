@@ -153,7 +153,7 @@ export const Sidebar = ({ sticky }: { sticky?: string }) => {
         >
           Đăng ký tư vấn
         </Heading>
-        <FormWrapper/>
+        <FormWrapper />
       </Box>
     </Box>
   );

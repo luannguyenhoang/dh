@@ -1,12 +1,12 @@
 import { gql } from "@apollo/client";
 
-export const GET_KE_TOAN = gql`
+export const GET_TAI_CHINH_NGAN_HANG = gql`
   query MyQuery {
-    allKToN {
+    allTIChNhNgNHNg {
       nodes {
-        keToan {
+        taiChinhNganHang {
           tieuDe
-          nganhKeToan {
+          nganhHocTcnh {
             title
             label {
               text

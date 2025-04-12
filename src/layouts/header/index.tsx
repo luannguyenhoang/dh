@@ -9,7 +9,7 @@ import { DesktopNav } from "../components/DeskhopNav";
 import { HeaderTop } from "../components/HeaderTop";
 import { MobileNav } from "../components/MobileNav";
 
-export const Header = () => {
+export const Header = ({ data }: { data: any }) => {
   const { onToggle, onOpen, onClose, isOpen } = useModal();
 
   return (
@@ -31,7 +31,7 @@ export const Header = () => {
         }}
       >
         <Container maxW="6xl" py="6px">
-          <HeaderTop hasSearch />
+          <HeaderTop hasSearch dataHeader={data} />
         </Container>
       </Box>
       <Divider />

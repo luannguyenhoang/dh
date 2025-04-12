@@ -1,47 +1,92 @@
+export const revalidate = 5;
+
+import { GET_TAI_CHINH_NGAN_HANG } from "@/app/api/GraphQl/taiChinhNganHang";
 import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { defaultDataTcnh } from "../../DefaultData/defaultDataTcnh";
 
-export const Tcnh = () => {
+const getTcnhData = async () => {
+  const client = new ApolloClient({
+    uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
+    ssrMode: true,
+    cache: new InMemoryCache(),
+  });
+
+  try {
+    const response = await client.query({
+      query: GET_TAI_CHINH_NGAN_HANG,
+      fetchPolicy: "network-only",
+    });
+
+    return response?.data?.allTIChNhNgNHNg?.nodes?.[0]?.taiChinhNganHang || {};
+  } catch (error) {
+    console.error("GraphQL Error:", error);
+    return {};
+  }
+};
+
+export const Tcnh = async () => {
+  const tcnhData = await getTcnhData();
+  const nganhHoc = tcnhData?.nganhHocTcnh || {};
+
+  const credits = parseInt(
+    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label1?.text2 ||
+      defaultDataTcnh.credits.toString()
+  );
+  const subjects = parseInt(
+    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label2?.text2 ||
+      defaultDataTcnh.subjects.toString()
+  );
+
+  const universityInfo = nganhHoc?.label || [];
+
+  const notifyData = {
+    tieuDe:
+      tcnhData?.tuyenSinh?.header?.title || defaultDataTcnh.notifyData.tieuDe,
+    noiDung:
+      tcnhData?.tuyenSinh?.header?.text || defaultDataTcnh.notifyData.noiDung,
+    tuyenSinh: {
+      label1: {
+        child:
+          tcnhData?.tuyenSinh?.label1?.child ||
+          defaultDataTcnh.notifyData.tuyenSinh.label1.child,
+      },
+      label2: {
+        image:
+          tcnhData?.tuyenSinh?.label2?.image ||
+          defaultDataTcnh.notifyData.tuyenSinh.label2.image,
+      },
+    },
+  };
+
   return (
-    <LayoutNganh title="Ngành Tài chính ngân hàng">
+    <LayoutNganh
+      title={tcnhData?.tieuDe || defaultDataTcnh.title}
+      data={notifyData}
+    >
       <Branch
-        name="Tài chính ngân hàng"
-        overview={[
-          "Tài chính ngân hàng là một ngành học khá là rộng, liên quan đến tất cả các dịch vụ giao dịch tài chính Ngân hàng, lưu thông và vận hành tiền tệ. Ngành Tài chính ngân hàng có thể chia thành nhiều lĩnh vực chuyên ngành khác nhau như ngân hàng, tài chính doanh nghiệp, tài chính thuế, tài chính bảo hiểm Cụ thể hơn, tài chính ngân hàng là hình thức kinh doanh liên quan đến vấn đề tiền tệ thông qua ngân hàng và các công cụ tài chính của ngân hàng phát hành nhằm thanh toán và chi trả trong nội địa và quốc tế.",
-          "Sinh viên khi theo học ngành Tài chính ngân hàng sẽ dược cung cấp kiến thức về lĩnh vực tài chính, phát hành cổ phiếu, trái phiếu, huy động vốn tư vấn cho các doanh nghiệp về các hoạt động trên thị trường vốn như mua bán, sáp nhập doanh nghiệp.",
-        ]}
-        jobs={[
-          "Sau khi tốt nghiệp ngành Tài chính Ngân hàng tại Đại học trực tuyến TNU-Elearning, học viên sẽ có những cơ hội việc làm hấp dẫn như: nhân viên tín dụng, nhân viên thu hồi vốn, chuyên viên kế toán, kiểm toán, chuyên viên kinh doanh tiền tệ, chuyên viên quản trị tài sản và nguồn vốn, chuyên viên tư vấn đầu tư, chuyên viên phân tích tài chính, chuyên viên thanh toán quốc tế, giao dịch viên chứng khoán… và những ngành kinh doanh khác.",
-        ]}
+        name={nganhHoc?.title}
+        universityInfo={universityInfo}
+        overview={
+          nganhHoc?.tongQuan?.label?.map((item: any) => item.text) ||
+          defaultDataTcnh.overview
+        }
+        jobs={
+          nganhHoc?.ngheNghiep?.label?.map((item: any) => item.text) ||
+          defaultDataTcnh.jobs
+        }
         program={{
-          credits: 124,
-          subjects: 42,
-          list: [
-            {
-              title: "Đã có bằng Trung học phổ thông",
-              content: "Từ 4 năm",
-            },
-            {
-              title: "Đã có bằng cao đẳng ngành Điện tử viễn thông",
-              content: "Từ 2 năm",
-            },
-            {
-              title: "Đã có bằng cao đẳng khác ngành Điện tử viễn thông",
-              content: "Từ 2 - 3 năm",
-            },
-            {
-              title: "Đã có bằng trung cấp ngành Điện tử viễn thông",
-              content: "Từ 3 năm",
-            },
-            {
-              title: "Đã có bằng trung cấp khác ngành Điện tử viễn thông",
-              content: "Từ 4 năm",
-            },
-            {
-              title: "Đã có bằng Đại học",
-              content: "Từ 1,5 - 2 năm",
-            },
-          ],
+          credits,
+          subjects,
+          tongQuan: nganhHoc?.tongQuan,
+          ngheNghiep: nganhHoc?.ngheNghiep,
+          chuongTrinhVaThoiGianDaoTao: nganhHoc?.chuongTrinhVaThoiGianDaoTao,
+          list:
+            nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label2?.map((item: any) => ({
+              title: item.text1 || "",
+              content: item.text2 || "",
+            })) || defaultDataTcnh.programList,
         }}
       />
     </LayoutNganh>

@@ -1,15 +1,15 @@
 export const menus = [
   {
-    path: "/", // the url
+    path: "/",
     title: "Trang chủ",
   },
   {
-    path: "/gioi-thieu", // the url
+    path: "/gioi-thieu",
     title: "Giới thiệu",
   },
 
   {
-    path: "#", // the url
+    path: "#",
     title: "Ngành học",
     childs: [
       {
@@ -51,16 +51,16 @@ export const menus = [
     ],
   },
   {
-    path: "/lich-khai-giang", // the url
+    path: "/lich-khai-giang",
     title: "Lịch khai giảng",
   },
   {
-    path: "/dang-ky", // the url
+    path: "/dang-ky",
     title: "Đăng ký",
   },
   {
-    path: "/tin-tuc", // the url
-    title: "Tin tức", // view rendered
+    path: "/tin-tuc",
+    title: "Tin tức",
   },
 ];
 

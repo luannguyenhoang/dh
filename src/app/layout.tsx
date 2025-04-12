@@ -1,12 +1,13 @@
 "server only";
 
+import { ModalProvider } from "@/components/ModalContext";
 import { CTA } from "@/layouts/components/Cta";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { GoogleTagManager } from "@next/third-parties/google";
 import dynamic from "next/dynamic";
 import { GET_FOOTER } from "./api/GraphQl/footer";
+import { GET_HEADER } from "./api/GraphQl/header";
 import { GET_CTA } from "./api/GraphQl/home";
-import { ModalProvider } from "@/components/ModalContext";
 
 const Footer = dynamic(() =>
   import("@/layouts/footer").then((mod) => mod.Footer)
@@ -19,7 +20,7 @@ const Providers = dynamic(() =>
 );
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
-  const { footerData, ctaData } = await getLayoutData();
+  const { footerData, ctaData, headerData } = await getLayoutData();
 
   return (
     <html lang="vi">
@@ -36,7 +37,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
 
         <Providers>
           <ModalProvider>
-            <Header />
+            <Header data={headerData} />
             {children}
             <Footer footerData={footerData} />
             <CTA ctaData={ctaData} />
@@ -55,7 +56,7 @@ async function getLayoutData() {
   });
 
   try {
-    const [footerResponse, ctaResponse] = await Promise.all([
+    const [footerResponse, ctaResponse, headerResponse] = await Promise.all([
       client.query({
         query: GET_FOOTER,
         fetchPolicy: "network-only",
@@ -64,16 +65,22 @@ async function getLayoutData() {
         query: GET_CTA,
         fetchPolicy: "network-only",
       }),
+      client.query({
+        query: GET_HEADER,
+        fetchPolicy: "network-only",
+      }),
     ]);
 
     return {
       footerData:
         footerResponse?.data?.allTrangCh?.nodes?.[0]?.trangCh?.footer || {},
       ctaData: ctaResponse?.data?.allCTA?.nodes?.[0]?.ctaQuery || {},
+      headerData:
+        headerResponse?.data?.allTrangCh?.nodes?.[0]?.trangCh?.header || {},
     };
   } catch (error) {
     console.error("GraphQL Error:", error);
-    return { footerData: {}, ctaData: {} };
+    return { footerData: {}, ctaData: {}, headerData: {} };
   }
 }
 

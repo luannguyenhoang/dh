@@ -1,11 +1,23 @@
-import { ReactNode } from "react";
+import { GET_QUAN_TRI_KINH_DOANH } from "@/app/api/GraphQl/quanTriKinhDoanh";
+import { getSeoData } from "@/ultil/getSeoData";
+import { generateMetadataFromFullHead } from "@/ultil/seoUtils";
 import { Metadata } from "next";
+import { ReactNode } from "react";
 
-export const metadata: Metadata = {
-  title: "Ngành quản trị kinh doanh",
-  description:
-    "Tuyển sinh đại học từ xa ngành quản trị kinh doanh - Đại học Thái nguyên, nhận bằng đại học tại nhà",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getSeoData(
+    GET_QUAN_TRI_KINH_DOANH,
+    "allQuNTrKinhDoanh"
+  );
+
+  return {
+    ...generateMetadataFromFullHead(
+      seo.fullHead || "",
+      seo.focusKeywords || ""
+    ),
+    robots: "index, follow",
+  };
+}
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;

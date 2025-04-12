@@ -1,11 +1,20 @@
-import { ReactNode } from "react";
+import { GET_TAI_CHINH_NGAN_HANG } from "@/app/api/GraphQl/taiChinhNganHang";
+import { getSeoData } from "@/ultil/getSeoData";
+import { generateMetadataFromFullHead } from "@/ultil/seoUtils";
 import { Metadata } from "next";
+import { ReactNode } from "react";
 
-export const metadata: Metadata = {
-  title: "Ngành tài chính ngân hàng",
-  description:
-    "Tuyển sinh đại học từ xa ngành tài chính ngân hàng - Đại học Thái nguyên, nhận bằng đại học tại nhà",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getSeoData(GET_TAI_CHINH_NGAN_HANG, "allTIChNhNgNHNg");
+
+  return {
+    ...generateMetadataFromFullHead(
+      seo.fullHead || "",
+      seo.focusKeywords || ""
+    ),
+    robots: "index, follow",
+  };
+}
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
