@@ -10,7 +10,7 @@ export const TextScroll = ({ list }: { list?: string[] }) => {
         display: "flex",
         position: "relative",
         width: "100%",
-        height: "40px",
+        height: "60px",
         background:
           "linear-gradient(70deg, rgba(246, 137, 32, 1), rgba(252, 89, 52, 1) 100%)",
         overflow: "hidden",

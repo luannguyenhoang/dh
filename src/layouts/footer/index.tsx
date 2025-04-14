@@ -92,8 +92,7 @@ export const Footer = ({ footerData }: { footerData?: any }) => {
   const pageText =
     footerData?.text13 || "Fanpage: daihocthainguyen - elearning";
   const fbLink = footerData?.text14 || "https://www.facebook.com/TNUElearning";
-  const tiktokLink =
-    footerData?.text14 || "https://www.tiktok.com/@tnuelearning?";
+  const tiktokLink = "https://www.tiktok.com/@tnuelearning?";
 
   return (
     <>

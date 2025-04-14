@@ -25,7 +25,7 @@ export async function GET(request: Request) {
     });
 
     if (!data) {
-      throw new Error("Không thể lấy dữ liệu");
+      throw new Error("Không thể lấy dữ liệu"); 
     }
 
     const normalizedSearch = search

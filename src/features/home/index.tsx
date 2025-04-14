@@ -1,5 +1,4 @@
 "use client";
-import { FormWrapper } from "@/components/FormWrapper";
 import { Loading } from "@/components/Loading";
 import { useModal } from "@/components/ModalContext";
 import { Box } from "@chakra-ui/react";
@@ -69,7 +68,7 @@ export const Home = ({
   const { setAutoOpen } = useModal();
 
   useEffect(() => {
-    setAutoOpen && setAutoOpen(true);    
+    setAutoOpen && setAutoOpen(true);
     return () => {
       setAutoOpen && setAutoOpen(false);
     };

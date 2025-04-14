@@ -32,6 +32,12 @@ const TestimonialContent = (props: Props) => {
       rounded={"xl"}
       align={"center"}
       pos={"relative"}
+      transition="all 0.3s ease"
+      _hover={{
+        transform: "translateY(-10px)",
+        boxShadow: "xl",
+        zIndex: 1,
+      }}
       _after={{
         content: `""`,
         w: 0,
@@ -70,6 +76,15 @@ const TestimonialText = (props: Props) => {
       textAlign={"center"}
       color={useColorModeValue("gray.600", "gray.400")}
       fontSize={"sm"}
+      position="relative"
+      cursor="pointer"
+      _hover={{
+        "& > div": {
+          opacity: 1,
+          visibility: "visible",
+          transform: "translate(-50%, -100%) translateY(-10px)",
+        },
+      }}
     >
       {children}
     </Text>
