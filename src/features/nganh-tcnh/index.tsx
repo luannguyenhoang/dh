@@ -4,7 +4,7 @@ import { GET_TAI_CHINH_NGAN_HANG } from "@/app/api/GraphQl/taiChinhNganHang";
 import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { defaultDataTcnh } from "../../DefaultData/defaultDataTcnh";
+import { defaultDataTcnh } from "../../ultil/DefaultData/defaultDataTcnh";
 
 const getTcnhData = async () => {
   const client = new ApolloClient({

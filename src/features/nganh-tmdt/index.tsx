@@ -4,7 +4,7 @@ import { GET_THUONG_MAI_DIEN_TU_VA_MARKETING_SO } from "@/app/api/GraphQl/thuong
 import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { defaultDataTmdt } from "../../DefaultData/defaultDataTmdt";
+import { defaultDataTmdt } from "../../ultil/DefaultData/defaultDataTmdt";
 
 const getTmdtData = async () => {
   const client = new ApolloClient({

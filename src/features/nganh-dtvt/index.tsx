@@ -4,7 +4,7 @@ import { GET_DIEN_TU_VIEN_THONG } from "@/app/api/GraphQl/dienTuVienThong";
 import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { defaultDataDtvt } from "../../DefaultData/defaultDataDtvt";
+import { defaultDataDtvt } from "../../ultil/DefaultData/defaultDataDtvt";
 
 const getDtvtData = async () => {
   const client = new ApolloClient({

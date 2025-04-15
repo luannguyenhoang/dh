@@ -4,7 +4,7 @@ import { GET_QUAN_TRI_KINH_DOANH } from "@/app/api/GraphQl/quanTriKinhDoanh";
 import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { defaultDataQtkd } from "../../DefaultData/defaultDataQtkd";
+import { defaultDataQtkd } from "../../ultil/DefaultData/defaultDataQtkd";
 
 const getQtkdData = async () => {
   const client = new ApolloClient({

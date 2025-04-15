@@ -4,7 +4,7 @@ import { GET_NGON_NGU_TRUNG } from "@/app/api/GraphQl/ngonNguTrung";
 import { FrameWrapper } from "@/components/FrameWrapper";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { defaultDataNnt } from "../../DefaultData/defaultDataNnt";
+import { defaultDataNnt } from "../../ultil/DefaultData/defaultDataNnt";
 
 const getNntData = async () => {
   const client = new ApolloClient({
