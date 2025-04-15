@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { IconType } from "react-icons";
-import { defaultDataSupport } from "../../DefaultData/defaultDataSupport";
+import { defaultDataSupport } from "../../ultil/DefaultData/defaultDataSupport";
 
 export const AccSupport = ({ supportItems = defaultDataSupport.supportItems }) => {
   return (

@@ -4,7 +4,7 @@ import { GET_LUAT_KING_TE } from "@/app/api/GraphQl/luatKingTe";
 import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { defaultDataLkt } from "../../DefaultData/defaultDataLkt";
+import { defaultDataLkt } from "../../ultil/DefaultData/defaultDataLkt";
 
 const getLktData = async () => {
   const client = new ApolloClient({

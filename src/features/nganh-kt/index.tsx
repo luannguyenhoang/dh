@@ -4,7 +4,7 @@ import { GET_KE_TOAN } from "@/app/api/GraphQl/keToan";
 import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { defaultDataKt } from "../../DefaultData/defaultDataKt";
+import { defaultDataKt } from "../../ultil/DefaultData/defaultDataKt";
 
 const getKtData = async () => {
   const client = new ApolloClient({

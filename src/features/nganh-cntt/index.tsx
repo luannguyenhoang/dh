@@ -4,7 +4,7 @@ import { GET_CONG_NGHE_THONG_TIN } from "@/app/api/GraphQl/congNgheThongTin";
 import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { defaultDataCntt } from "../../DefaultData/defaultDataCntt";
+import { defaultDataCntt } from "../../ultil/DefaultData/defaultDataCntt";
 
 const getCnttData = async () => {
   const client = new ApolloClient({

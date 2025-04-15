@@ -13,7 +13,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { AiFillStar } from "react-icons/ai";
-import { defaultDataContact } from "../../DefaultData/defaultDataContact";
+import { defaultDataContact } from "../../ultil/DefaultData/defaultDataContact";
 
 export const Contact = ({ contactData }: { contactData?: any }) => {
   const title = contactData?.tieuDe || defaultDataContact.title;

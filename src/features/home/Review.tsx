@@ -11,7 +11,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { defaultDataReview } from "../../DefaultData/defaultDataReview";
+import { defaultDataReview } from "../../ultil/DefaultData/defaultDataReview";
 
 interface Props {
   children: React.ReactNode;

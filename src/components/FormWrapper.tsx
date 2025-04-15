@@ -3,7 +3,7 @@
 
 import { GET_FORM } from "@/app/api/GraphQl/form";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { FormGetFly } from "./FormGetFly";
 import { FormGoogle } from "./FormGoogle";
@@ -123,11 +123,11 @@ export const FormWrapper = ({
   }, [type]);
 
   if (loading) {
-    return <Loading  />;
+    return <Loading />;
   }
 
   if (error) {
-    return <div>Error loading form: {error}</div>;
+    return <Box minH={"60vh"} display={"flex"} alignItems={"center"} justifyContent={"center"}><div>Dữ liệu đang được chúng tôi cập nhập</div></Box>;
   }
 
   return (

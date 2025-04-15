@@ -4,7 +4,7 @@ import { GET_NGON_NGU_ANH } from "@/app/api/GraphQl/ngonNguAnh";
 import { FrameWrapper } from "@/components/FrameWrapper";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { defaultDataNna } from "../../DefaultData/defaultDataNna";
+import { defaultDataNna } from "../../ultil/DefaultData/defaultDataNna";
 
 const getNnaData = async () => {
   const client = new ApolloClient({

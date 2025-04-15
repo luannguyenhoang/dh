@@ -12,7 +12,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import CountUp from "react-countup";
-import { defaultDataCounters } from "../../DefaultData/defaultDataCounters";
+import { defaultDataCounters } from "../../ultil/DefaultData/defaultDataCounters";
 
 interface ICounter {
   start: number;
