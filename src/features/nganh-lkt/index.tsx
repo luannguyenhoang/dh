@@ -1,10 +1,19 @@
 export const revalidate = 5;
 
 import { GET_LUAT_KING_TE } from "@/app/api/GraphQl/luatKingTe";
-import { Branch } from "@/components/Branch";
+import { Loading } from "@/components/Loading";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { defaultDataLkt } from "../../ultil/DefaultData/defaultDataLkt";
+
+const Branch = dynamic(
+  () => import("@/components/Branch").then((mod) => mod.Branch),
+  {
+    loading: () => <Loading />,
+  }
+);
 
 const getLktData = async () => {
   const client = new ApolloClient({
@@ -19,6 +28,10 @@ const getLktData = async () => {
       fetchPolicy: "network-only",
     });
 
+    if (!response?.data) {
+      throw new Error(`GraphQL query failed with status: ${response?.networkStatus}`);
+    }
+
     return response?.data?.allLuTKinhT?.nodes?.[0]?.luatKinhTe || {};
   } catch (error) {
     console.error("GraphQL Error:", error);
@@ -31,25 +44,31 @@ export const Lkt = async () => {
   const nganhHoc = lktData?.nganhHocCntt || {};
 
   const credits = parseInt(
-    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label1?.cot?.text2 || defaultDataLkt.credits.toString()
+    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label1?.cot?.text2 ||
+      defaultDataLkt.credits.toString()
   );
   const subjects = parseInt(
-    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label2?.cot?.text2 || defaultDataLkt.subjects.toString()
+    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label2?.cot?.text2 ||
+      defaultDataLkt.subjects.toString()
   );
 
   const universityInfo = nganhHoc?.label || [];
 
   const notifyData = {
-    tieuDe: lktData?.tuyenSinh?.header?.title || defaultDataLkt.notifyData.tieuDe,
+    tieuDe:
+      lktData?.tuyenSinh?.header?.title || defaultDataLkt.notifyData.tieuDe,
     noiDung:
-      lktData?.tuyenSinh?.header?.text ||
-      defaultDataLkt.notifyData.noiDung,
+      lktData?.tuyenSinh?.header?.text || defaultDataLkt.notifyData.noiDung,
     tuyenSinh: {
       label1: {
-        child: lktData?.tuyenSinh?.label1?.child || defaultDataLkt.notifyData.tuyenSinh.label1.child,
+        child:
+          lktData?.tuyenSinh?.label1?.child ||
+          defaultDataLkt.notifyData.tuyenSinh.label1.child,
       },
       label2: {
-        image: lktData?.tuyenSinh?.label2?.image || defaultDataLkt.notifyData.tuyenSinh.label2.image,
+        image:
+          lktData?.tuyenSinh?.label2?.image ||
+          defaultDataLkt.notifyData.tuyenSinh.label2.image,
       },
     },
   };
@@ -59,29 +78,34 @@ export const Lkt = async () => {
       title={lktData?.tieuDe || defaultDataLkt.title}
       data={notifyData}
     >
-      <Branch
-        name={nganhHoc?.title || defaultDataLkt.name}
-        universityInfo={universityInfo}
-        overview={
-          nganhHoc?.tongQuan?.label?.map((item: any) => item.text) || defaultDataLkt.overview
-        }
-        jobs={
-          nganhHoc?.ngheNghiep?.label?.map((item: any) => item.text) || defaultDataLkt.jobs
-        }
-        program={{
-          credits,
-          subjects,
-          tongQuan: nganhHoc?.tongQuan,
-          ngheNghiep: nganhHoc?.ngheNghiep,
-          chuongTrinhVaThoiGianDaoTao: nganhHoc?.chuongTrinhVaThoiGianDaoTao,
-          list: nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label2?.map(
-            (item: any) => ({
-              title: item.cot.text1 || "",
-              content: item.cot.text2 || "",
-            })
-          ) || defaultDataLkt.programList,
-        }}
-      />
+      <Suspense fallback={<Loading />}>
+        <Branch
+          name={nganhHoc?.title || defaultDataLkt.name}
+          universityInfo={universityInfo}
+          overview={
+            nganhHoc?.tongQuan?.label?.map((item: any) => item.text) ||
+            defaultDataLkt.overview
+          }
+          jobs={
+            nganhHoc?.ngheNghiep?.label?.map((item: any) => item.text) ||
+            defaultDataLkt.jobs
+          }
+          program={{
+            credits,
+            subjects,
+            tongQuan: nganhHoc?.tongQuan,
+            ngheNghiep: nganhHoc?.ngheNghiep,
+            chuongTrinhVaThoiGianDaoTao: nganhHoc?.chuongTrinhVaThoiGianDaoTao,
+            list:
+              nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label2?.map(
+                (item: any) => ({
+                  title: item.cot.text1 || "",
+                  content: item.cot.text2 || "",
+                })
+              ) || defaultDataLkt.programList,
+          }}
+        />
+      </Suspense>
     </LayoutNganh>
   );
 };

@@ -18,11 +18,11 @@ import {
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRef } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsChevronDown } from "react-icons/bs";
-import dynamic from "next/dynamic";
 
 const Logo = dynamic(() =>
   import("@/layouts/components/Logo").then((mod) => mod.Logo)
@@ -102,7 +102,7 @@ export const MobileNavItem = ({ title, childs, path, onClose }: INavItem) => {
   );
 };
 
-export const MobileNav = () => {
+export const MobileNav = ({ data }: { data: any }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
 
@@ -131,7 +131,7 @@ export const MobileNav = () => {
           <DrawerCloseButton />
           <DrawerHeader>
             <Flex justify={"center"}>
-              <Logo />
+              <Logo dataLogo={data} />
             </Flex>
           </DrawerHeader>
           <Divider />
@@ -166,7 +166,7 @@ export const MobileNav = () => {
             py="24px"
             px={"12px"}
           >
-            <HeaderTop />
+            <HeaderTop dataHeader={data} />
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

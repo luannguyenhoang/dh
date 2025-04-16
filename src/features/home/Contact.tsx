@@ -1,7 +1,7 @@
 "use client";
 
-import { FormWrapper } from "@/components/FormWrapper";
 import { HeadSectionLight } from "@/components/HeadSection";
+import { Loading } from "@/components/Loading";
 import styles from "@/styles/Home.module.css";
 import {
   Box,
@@ -12,8 +12,17 @@ import {
   ListItem,
   SimpleGrid,
 } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { defaultDataContact } from "../../ultil/DefaultData/defaultDataContact";
+
+const FormWrapper = dynamic(
+  () => import("@/components/FormWrapper").then((mod) => mod.FormWrapper),
+  {
+    loading: () => <Loading />,
+  }
+);
 
 export const Contact = ({ contactData }: { contactData?: any }) => {
   const title = contactData?.tieuDe || defaultDataContact.title;
@@ -69,7 +78,9 @@ export const Contact = ({ contactData }: { contactData?: any }) => {
           </GridItem>
 
           <GridItem>
-            <FormWrapper type="form-main" />
+            <Suspense fallback={<Loading />}>
+              <FormWrapper type="form-main" />
+            </Suspense>
           </GridItem>
         </SimpleGrid>
       </Container>

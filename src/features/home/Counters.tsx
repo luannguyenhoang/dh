@@ -1,6 +1,6 @@
 "use client";
 
-import { HeadSectionLight } from "@/components/HeadSection";
+import { Loading } from "@/components/Loading";
 import styles from "@/styles/Couters.module.css";
 import {
   Box,
@@ -11,8 +11,16 @@ import {
   ListItem,
   SimpleGrid,
 } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import CountUp from "react-countup";
 import { defaultDataCounters } from "../../ultil/DefaultData/defaultDataCounters";
+
+const HeadSectionLight = dynamic(
+  () => import("@/components/HeadSection").then((mod) => mod.HeadSectionLight),
+  {
+    loading: () => <Loading />,
+  }
+);
 
 interface ICounter {
   start: number;
