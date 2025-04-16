@@ -1,7 +1,5 @@
 "use client";
 
-import { FormWrapper } from "@/components/FormWrapper";
-import { ModalBase } from "@/components/Modal";
 import {
   Box,
   Container,
@@ -16,8 +14,9 @@ import {
   VisuallyHidden,
   chakra,
   useColorModeValue,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -64,6 +63,13 @@ const SocialButton = ({
   );
 };
 
+const ModalBaseDynamic = dynamic(() =>
+  import("@/components/Modal").then((mod) => mod.ModalBase)
+);
+const FormWrapperDynamic = dynamic(() =>
+  import("@/components/FormWrapper").then((mod) => mod.FormWrapper)
+);
+
 export const Footer = ({ footerData }: { footerData?: any }) => {
   const { onToggle, onOpen, onClose, isOpen } = useDisclosure();
 
@@ -109,13 +115,13 @@ export const Footer = ({ footerData }: { footerData?: any }) => {
                 onClick={onToggle}
               />
             </Box>
-            <ModalBase
+            <ModalBaseDynamic
               isOpen={isOpen || false}
               onOpen={() => onOpen && onOpen()}
               onClose={() => onClose && onClose()}
             >
-              <FormWrapper type="form-poup" title="Để lại thông tin" />
-            </ModalBase>
+              <FormWrapperDynamic type="form-poup" title="Để lại thông tin" />
+            </ModalBaseDynamic>
           </Flex>
           <SimpleGrid columns={{ base: 1, sm: 2, md: 5 }} spacing={8}>
             <GridItem colSpan={{ base: 1, sm: 2 }}>

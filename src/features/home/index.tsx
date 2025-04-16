@@ -4,17 +4,8 @@ import { useModal } from "@/components/ModalContext";
 import { Box } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
-
-const Banner = dynamic(() => import("./Banner").then((mod) => mod.Banner), {
-  loading: () => <Loading />,
-});
-
-const TextScroll = dynamic(
-  () => import("./TextScroll").then((mod) => mod.TextScrollHomePage),
-  {
-    loading: () => <Loading />,
-  }
-);
+import { Banner } from "./Banner";
+import { TextScrollHomePage } from "./TextScroll";
 
 const Categorys = dynamic(
   () => import("./Categorys").then((mod) => mod.Categorys),
@@ -78,7 +69,7 @@ export const Home = ({
     <>
       <Banner bannerData={homeData?.banner} />
       <Box>
-        <TextScroll timelineData={timelineData} />
+        <TextScrollHomePage timelineData={timelineData} />
       </Box>
       <Categorys categoryData={homeData?.cacNganhDaoTao} />
       <Benefit benefitData={homeData?.banNhan} />

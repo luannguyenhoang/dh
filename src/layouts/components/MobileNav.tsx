@@ -18,18 +18,12 @@ import {
   Stack,
   useDisclosure,
 } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRef } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { BsChevronDown } from "react-icons/bs";
-
-const Logo = dynamic(() =>
-  import("@/layouts/components/Logo").then((mod) => mod.Logo)
-);
-const HeaderTop = dynamic(() =>
-  import("@/layouts/components/HeaderTop").then((mod) => mod.HeaderTop)
-);
+import { HeaderTop } from "./HeaderTop";
+import { Logo } from "./Logo";
 
 interface INavItem {
   title: string;
