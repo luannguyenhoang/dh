@@ -1,5 +1,14 @@
-import { FormWrapper } from "@/components/FormWrapper";
 import { Box, Container, Heading } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { Loading } from "@/components/Loading";
+
+const FormWrapper = dynamic(
+  () => import("@/components/FormWrapper").then((mod) => mod.FormWrapper),
+  {
+    loading: () => <Loading />,
+  }
+);
 
 export const Dangky = () => {
   return (
@@ -22,7 +31,9 @@ export const Dangky = () => {
         color={"blue.800"}
       >
         <Container maxW={"xl"} py="60px">
-            <FormWrapper type="form-main"/>
+          <Suspense fallback={<Box>Loading...</Box>}>
+            <FormWrapper type="form-main" />
+          </Suspense>
         </Container>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.7609480745314!2d105.77113527669943!3d21.04224898731216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454c918a64e17%3A0x6a26c7ecd7ef4df2!2zMTE2IFAuIFRy4bqnbiBW4bu5LCBNYWkgROG7i2NoLCBD4bqndSBHaeG6pXksIEjDoCBO4buZaSwgVmlldG5hbQ!5e0!3m2!1sen!2s!4v1695417775713!5m2!1sen!2s"
