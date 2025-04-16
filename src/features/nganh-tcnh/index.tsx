@@ -19,6 +19,10 @@ const getTcnhData = async () => {
       fetchPolicy: "network-only",
     });
 
+    if (!response?.data) {
+      throw new Error(`GraphQL query failed with status: ${response?.networkStatus}`);
+    }
+
     return response?.data?.allTIChNhNgNHNg?.nodes?.[0]?.taiChinhNganHang || {};
   } catch (error) {
     console.error("GraphQL Error:", error);

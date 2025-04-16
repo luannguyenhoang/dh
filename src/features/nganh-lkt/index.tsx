@@ -28,6 +28,10 @@ const getLktData = async () => {
       fetchPolicy: "network-only",
     });
 
+    if (!response?.data) {
+      throw new Error(`GraphQL query failed with status: ${response?.networkStatus}`);
+    }
+
     return response?.data?.allLuTKinhT?.nodes?.[0]?.luatKinhTe || {};
   } catch (error) {
     console.error("GraphQL Error:", error);

@@ -95,7 +95,7 @@ export const ListPosts = ({
           }
         );
         if (!res.ok) {
-          throw new Error("Failed to fetch data");
+          throw new Error(`Posts fetch failed with status: ${res.statusText}`);
         }
         const data: { posts: any[]; totalPosts: string } = await res.json();
         const { posts, totalPosts } = data;

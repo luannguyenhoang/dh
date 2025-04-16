@@ -11,6 +11,9 @@ const getLatestPosts = async () => {
         next: { revalidate: 1 },
       }
     );
+    if (!res.ok) {
+      throw new Error(`Posts fetch failed with status: ${res.statusText}`);
+    }
     const posts: any[] = await res.json();
 
     return { posts: posts || [] };
