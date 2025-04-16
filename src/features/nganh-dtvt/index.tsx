@@ -1,10 +1,19 @@
 export const revalidate = 5;
 
 import { GET_DIEN_TU_VIEN_THONG } from "@/app/api/GraphQl/dienTuVienThong";
-import { Branch } from "@/components/Branch";
+import { Loading } from "@/components/Loading";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { defaultDataDtvt } from "../../ultil/DefaultData/defaultDataDtvt";
+
+const Branch = dynamic(
+  () => import("@/components/Branch").then((mod) => mod.Branch),
+  {
+    loading: () => <Loading />,
+  }
+);
 
 const getDtvtData = async () => {
   const client = new ApolloClient({
@@ -31,25 +40,31 @@ export const Dtvt = async () => {
   const nganhHoc = dtvtData?.nganhHocDtvt || {};
 
   const credits = parseInt(
-    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label?.[0]?.cot?.text2 || defaultDataDtvt.credits.toString()
+    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label?.[0]?.cot?.text2 ||
+      defaultDataDtvt.credits.toString()
   );
   const subjects = parseInt(
-    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label?.[1]?.cot?.text2 || defaultDataDtvt.subjects.toString()
+    nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label?.[1]?.cot?.text2 ||
+      defaultDataDtvt.subjects.toString()
   );
 
   const universityInfo = nganhHoc?.label || [];
 
   const notifyData = {
-    tieuDe: dtvtData?.tuyenSinh?.header?.title || defaultDataDtvt.notifyData.tieuDe,
+    tieuDe:
+      dtvtData?.tuyenSinh?.header?.title || defaultDataDtvt.notifyData.tieuDe,
     noiDung:
-      dtvtData?.tuyenSinh?.header?.text ||
-      defaultDataDtvt.notifyData.noiDung,
+      dtvtData?.tuyenSinh?.header?.text || defaultDataDtvt.notifyData.noiDung,
     tuyenSinh: {
       label1: {
-        child: dtvtData?.tuyenSinh?.label1?.child || defaultDataDtvt.notifyData.tuyenSinh.label1.child,
+        child:
+          dtvtData?.tuyenSinh?.label1?.child ||
+          defaultDataDtvt.notifyData.tuyenSinh.label1.child,
       },
       label2: {
-        image: dtvtData?.tuyenSinh?.label2?.image || defaultDataDtvt.notifyData.tuyenSinh.label2.image,
+        image:
+          dtvtData?.tuyenSinh?.label2?.image ||
+          defaultDataDtvt.notifyData.tuyenSinh.label2.image,
       },
     },
   };
@@ -59,27 +74,34 @@ export const Dtvt = async () => {
       title={dtvtData?.tieuDe || defaultDataDtvt.title}
       data={notifyData}
     >
-      <Branch
-        name={nganhHoc?.title}
-        universityInfo={universityInfo}
-        overview={
-          nganhHoc?.tongQuan?.label?.map((item: any) => item.text) || defaultDataDtvt.overview
-        }
-        jobs={nganhHoc?.ngheNghiep?.label?.map((item: any) => item.text) || defaultDataDtvt.jobs}
-        program={{
-          credits,
-          subjects,
-          tongQuan: nganhHoc?.tongQuan,
-          ngheNghiep: nganhHoc?.ngheNghiep,
-          chuongTrinhVaThoiGianDaoTao: nganhHoc?.chuongTrinhVaThoiGianDaoTao,
-          list: nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label2?.map(
-            (item: any) => ({
-              title: item.text1 || "",
-              content: item.text2 || "",
-            })
-          ) || defaultDataDtvt.programList,
-        }}
-      />
+      <Suspense fallback={<Loading />}>
+        <Branch
+          name={nganhHoc?.title}
+          universityInfo={universityInfo}
+          overview={
+            nganhHoc?.tongQuan?.label?.map((item: any) => item.text) ||
+            defaultDataDtvt.overview
+          }
+          jobs={
+            nganhHoc?.ngheNghiep?.label?.map((item: any) => item.text) ||
+            defaultDataDtvt.jobs
+          }
+          program={{
+            credits,
+            subjects,
+            tongQuan: nganhHoc?.tongQuan,
+            ngheNghiep: nganhHoc?.ngheNghiep,
+            chuongTrinhVaThoiGianDaoTao: nganhHoc?.chuongTrinhVaThoiGianDaoTao,
+            list:
+              nganhHoc?.chuongTrinhVaThoiGianDaoTao?.label2?.map(
+                (item: any) => ({
+                  title: item.text1 || "",
+                  content: item.text2 || "",
+                })
+              ) || defaultDataDtvt.programList,
+          }}
+        />
+      </Suspense>
     </LayoutNganh>
   );
 };

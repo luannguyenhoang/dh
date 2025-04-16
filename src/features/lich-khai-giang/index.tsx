@@ -1,9 +1,16 @@
 "use client";
 
-import { FrameWrapper } from "@/components/FrameWrapper";
 import { Loading } from "@/components/Loading";
 import { LayoutNganh } from "@/layouts/layoutNganh";
-import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { Suspense, useEffect, useState } from "react";
+
+const FrameWrapper = dynamic(
+  () => import("@/components/FrameWrapper").then((mod) => mod.FrameWrapper),
+  {
+    loading: () => <Loading />,
+  }
+);
 
 export const LichKg = ({ serverData }: { serverData?: any }) => {
   const [labelList, setLabelList] = useState<string[]>([]);
@@ -25,11 +32,13 @@ export const LichKg = ({ serverData }: { serverData?: any }) => {
       data={lichData?.thongBao}
     >
       {!isLoading && (
-        <FrameWrapper
-          title1={lichData?.section1?.title}
-          list1={labelList}
-          label="Đăng ký tư vấn"
-        />
+        <Suspense fallback={<Loading />}>
+          <FrameWrapper
+            title1={lichData?.section1?.title}
+            list1={labelList}
+            label="Đăng ký tư vấn"
+          />
+        </Suspense>
       )}
 
       {isLoading && <Loading height="10vh" />}

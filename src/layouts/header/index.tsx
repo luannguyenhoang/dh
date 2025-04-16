@@ -55,7 +55,7 @@ export const Header = ({ data }: { data: any }) => {
           maxW="6xl"
         >
           <Flex ml={{ base: -2 }} display={{ base: "flex", lg: "none" }}>
-            <MobileNav />
+            <MobileNav data={data} />
           </Flex>
           <Flex
             flex={{ base: 1 }}
