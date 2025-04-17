@@ -63,7 +63,7 @@ export const HeaderTop = ({
         justify={"center"}
         display={{ base: "none", lg: "flex" }}
       >
-        <Logo dataLogo={dataHeader} />
+        {/* <Logo dataLogo={dataHeader} /> */}
       </HStack>
 
       {hasSearch && (

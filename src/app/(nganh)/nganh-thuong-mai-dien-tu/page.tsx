@@ -1,15 +1,13 @@
 import { Loading } from "@/components/Loading";
-import dynamic from "next/dynamic";
-
-const Tmdt = dynamic(
-  () => import("@/features/nganh-tmdt").then((mod) => mod.Tmdt),
-  {
-    loading: () => <Loading />,
-  }
-);
+import { Suspense } from "react";
+import { Tmdt } from "@/features/nganh-tmdt";
 
 const Page = () => {
-  return <Tmdt />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <Tmdt />
+    </Suspense>
+  );
 };
 
 export default Page;

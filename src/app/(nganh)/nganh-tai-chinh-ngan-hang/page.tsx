@@ -1,17 +1,14 @@
 "use client";
-
 import { Loading } from "@/components/Loading";
-import dynamic from "next/dynamic";
-
-const Tcnh = dynamic(
-  () => import("@/features/nganh-tcnh").then((mod) => mod.Tcnh),
-  {
-    loading: () => <Loading />,
-  }
-);
+import { Suspense } from "react";
+import { Tcnh } from "@/features/nganh-tcnh";
 
 const Page = () => {
-  return <Tcnh />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <Tcnh />
+    </Suspense>
+  );
 };
 
 export default Page;

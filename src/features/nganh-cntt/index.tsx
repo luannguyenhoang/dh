@@ -1,31 +1,30 @@
-export const revalidate = 5;
+export const revalidate = 3600;
 
 import { GET_CONG_NGHE_THONG_TIN } from "@/app/api/GraphQl/congNgheThongTin";
 import { Loading } from "@/components/Loading";
+import { Branch } from "@/components/Branch";
 import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { defaultDataCntt } from "../../ultil/DefaultData/defaultDataCntt";
 
-const Branch = dynamic(
-  () => import("@/components/Branch").then((mod) => mod.Branch),
-  {
-    loading: () => <Loading />,
-  }
-);
+// Tạo singleton Apollo client
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
+  ssrMode: typeof window === 'undefined',
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: 'cache-first',
+    },
+  },
+});
 
 const getCnttData = async () => {
-  const client = new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
-    ssrMode: true,
-    cache: new InMemoryCache(),
-  });
-
   try {
     const response = await client.query({
       query: GET_CONG_NGHE_THONG_TIN,
-      fetchPolicy: "network-only",
+      fetchPolicy: 'cache-first', // Sử dụng cache khi có sẵn
     });
 
     if (!response?.data) {

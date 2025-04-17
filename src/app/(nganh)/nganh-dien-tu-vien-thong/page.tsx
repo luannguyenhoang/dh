@@ -1,18 +1,12 @@
 import { Loading } from "@/components/Loading";
-import dynamic from "next/dynamic";
-
-const Dtvt = dynamic(
-  () => import("@/features/nganh-dtvt").then((mod) => mod.Dtvt),
-  {
-    loading: () => <Loading />,
-  }
-);
+import { Suspense } from "react";
+import { Dtvt } from "@/features/nganh-dtvt";
 
 const Page = () => {
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <Dtvt />
-    </>
+    </Suspense>
   );
 };
 

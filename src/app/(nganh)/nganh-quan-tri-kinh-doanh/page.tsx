@@ -1,17 +1,14 @@
 "use client";
-
 import { Loading } from "@/components/Loading";
-import dynamic from "next/dynamic";
-
-const Qtkd = dynamic(
-  () => import("@/features/nganh-qtkd").then((mod) => mod.Qtkd),
-  {
-    loading: () => <Loading />,
-  }
-);
+import { Qtkd } from "@/features/nganh-qtkd";
+import { Suspense } from "react";
 
 const Page = () => {
-  return <Qtkd />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <Qtkd />
+    </Suspense>
+  );
 };
 
 export default Page;

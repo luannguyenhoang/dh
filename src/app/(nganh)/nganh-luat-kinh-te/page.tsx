@@ -1,15 +1,13 @@
 import { Loading } from "@/components/Loading";
-import dynamic from "next/dynamic";
-
-const Lkt = dynamic(
-  () => import("@/features/nganh-lkt").then((mod) => mod.Lkt),
-  {
-    loading: () => <Loading />,
-  }
-);
+import { Suspense } from "react";
+import { Lkt } from "@/features/nganh-lkt";
 
 const Page = () => {
-  return <Lkt />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <Lkt />
+    </Suspense>
+  );
 };
 
 export default Page;

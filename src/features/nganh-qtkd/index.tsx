@@ -1,4 +1,4 @@
-export const revalidate = 5;
+export const revalidate = 20;
 
 import { GET_QUAN_TRI_KINH_DOANH } from "@/app/api/GraphQl/quanTriKinhDoanh";
 import { Branch } from "@/components/Branch";
@@ -6,17 +6,22 @@ import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { defaultDataQtkd } from "../../ultil/DefaultData/defaultDataQtkd";
 
-const getQtkdData = async () => {
-  const client = new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
-    ssrMode: true,
-    cache: new InMemoryCache(),
-  });
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
+  ssrMode: typeof window === 'undefined',
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: 'cache-first',
+    },
+  },
+});
 
+const getQtkdData = async () => {
   try {
     const response = await client.query({
       query: GET_QUAN_TRI_KINH_DOANH,
-      fetchPolicy: "network-only",
+      fetchPolicy: 'cache-first',
     });
 
     if (!response?.data) {

@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "dhthainguyen.local",
+        hostname: "10.10.51.16",
         pathname: "/**",
       },
     ],

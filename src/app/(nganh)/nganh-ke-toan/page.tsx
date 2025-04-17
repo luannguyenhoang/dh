@@ -1,15 +1,12 @@
 import { Loading } from "@/components/Loading";
-import dynamic from "next/dynamic";
-
-const Kt = dynamic(() => import("@/features/nganh-kt").then((mod) => mod.Kt), {
-  loading: () => <Loading />,
-});
+import { Suspense } from "react";
+import { Kt } from "@/features/nganh-kt";
 
 const Page = () => {
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <Kt />
-    </>
+    </Suspense>
   );
 };
 

@@ -1,4 +1,4 @@
-export const revalidate = 5;
+export const revalidate = 3600;
 
 import { GET_NGON_NGU_ANH } from "@/app/api/GraphQl/ngonNguAnh";
 import { FrameWrapper } from "@/components/FrameWrapper";
@@ -6,17 +6,23 @@ import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { defaultDataNna } from "../../ultil/DefaultData/defaultDataNna";
 
-const getNnaData = async () => {
-  const client = new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
-    ssrMode: true,
-    cache: new InMemoryCache(),
-  });
+// Tạo singleton Apollo client
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
+  ssrMode: typeof window === 'undefined',
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: 'cache-first',
+    },
+  },
+});
 
+const getNnaData = async () => {
   try {
     const response = await client.query({
       query: GET_NGON_NGU_ANH,
-      fetchPolicy: "network-only",
+      fetchPolicy: 'cache-first', // Sử dụng cache khi có sẵn
     });
 
     if (!response?.data) {

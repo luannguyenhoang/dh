@@ -1,4 +1,4 @@
-export const revalidate = 5;
+export const revalidate = 3600;
 
 import { GET_THUONG_MAI_DIEN_TU_VA_MARKETING_SO } from "@/app/api/GraphQl/thuongMaiDienTuVaMarketingSo";
 import { Branch } from "@/components/Branch";
@@ -6,17 +6,23 @@ import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { defaultDataTmdt } from "../../ultil/DefaultData/defaultDataTmdt";
 
-const getTmdtData = async () => {
-  const client = new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
-    ssrMode: true,
-    cache: new InMemoryCache(),
-  });
+// Tạo singleton Apollo client
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
+  ssrMode: typeof window === 'undefined',
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: 'cache-first',
+    },
+  },
+});
 
+const getTmdtData = async () => {
   try {
     const response = await client.query({
       query: GET_THUONG_MAI_DIEN_TU_VA_MARKETING_SO,
-      fetchPolicy: "network-only",
+      fetchPolicy: 'cache-first', // Sử dụng cache khi có sẵn
     });
 
     return response?.data?.allThNgMIINT?.nodes?.[0]?.thuongMaiDienTu || {};

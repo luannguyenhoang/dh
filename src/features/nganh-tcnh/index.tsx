@@ -1,4 +1,4 @@
-export const revalidate = 5;
+export const revalidate = 20;
 
 import { GET_TAI_CHINH_NGAN_HANG } from "@/app/api/GraphQl/taiChinhNganHang";
 import { Branch } from "@/components/Branch";
@@ -6,21 +6,28 @@ import { LayoutNganh } from "@/layouts/layoutNganh";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { defaultDataTcnh } from "../../ultil/DefaultData/defaultDataTcnh";
 
-const getTcnhData = async () => {
-  const client = new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
-    ssrMode: true,
-    cache: new InMemoryCache(),
-  });
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_API_GRAPHQL,
+  ssrMode: typeof window === "undefined",
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      fetchPolicy: "cache-first",
+    },
+  },
+});
 
+const getTcnhData = async () => {
   try {
     const response = await client.query({
       query: GET_TAI_CHINH_NGAN_HANG,
-      fetchPolicy: "network-only",
+      fetchPolicy: "cache-first", 
     });
 
     if (!response?.data) {
-      throw new Error(`GraphQL query failed with status: ${response?.networkStatus}`);
+      throw new Error(
+        `GraphQL query failed with status: ${response?.networkStatus}`
+      );
     }
 
     return response?.data?.allTIChNhNgNHNg?.nodes?.[0]?.taiChinhNganHang || {};
